@@ -1,0 +1,78 @@
+@startuml "bibliografia"
+
+class Articulo {
+    -String titulo;
+    -String correoElectronicoContacto;
+    -Boolean poseeCopia;
+    -String ubicacionCopia;
+    -List<Autor> autores;
+    -List<String> palabrasClave;
+    -Congreso congreso;
+    -InformeTecnico informeTecnico;
+    -RevistaCientifica revistaCientifica; 
+}
+
+class InformeTecnico {
+    -String numeroIdentificacion;
+    -String centroPublicacion;
+    -String mesPublicacion;
+    -int añoPublicacion;
+}
+
+class Congreso {
+    -String nombreCongreso;
+    -String edicion;
+    -String ciudad;
+    -Date fechaInicio;
+    -Date fechaFin;
+    -String tipo;
+    -String frecuencia;
+    -String pais;
+    -int añoPrimeraCelebracion;
+}
+
+class RevistaCientifica {
+    -String nombreRevista;
+    -String editor;
+    -int añoInicioPublicacion;
+    -String frecuenciaPublicacion;
+    -String numeroRevista;
+    -String paginasRelevantes;
+    -int añoPublicacion;
+    -List<String> temasAbordados;
+}
+
+class Autor {
+    -String nombre;
+    -String centroTrabajo;
+    -String correoElectronico;
+    -List<String> temasEspecificos;
+}
+
+class Investigador {
+    -String nombre;
+    -String centroTrabajo;
+    -String correoElectronico;
+    -List<String> temasEspecificos;
+    -List<Autor> listAutor;
+}
+
+
+class GrupoInvestigacion {
+  -String nombreGrupo;
+  -String descripcion;
+  -String sede;
+  -List<Investigador> investigadores;
+  -List<Articulo> articulos;
+}
+
+
+Articulo "1" o-- "0..1" InformeTecnico : "puede ser"
+Articulo "1" o-- "0..1" Congreso : "puede ser"
+Articulo "1" o-- "0..1" RevistaCientifica : "puede ser"
+Articulo "1" --> "1..*" Autor : "escrito por"
+GrupoInvestigacion "1" -- "0..*" Investigador : "contiene"
+GrupoInvestigacion "1" -- "0..*" Articulo : "contiene"
+Investigador "1" o-- "0..*" Autor : "articulos como autor"
+
+@enduml
